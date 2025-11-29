@@ -47,7 +47,12 @@ const CompanyNameEditor = ({ companyName, onSave }) => {
   const [gradientAngle, setGradientAngle] = useState(135);
 
   const handleOpen = () => {
-    setWords(parseCompanyName(companyName));
+    const parsedWords = parseCompanyName(companyName);
+    setWords(parsedWords);
+    if (parsedWords.length > 0) {
+      setGradientColor1(parsedWords[0].color1);
+      setGradientColor2(parsedWords[0].color2);
+    }
     setOpen(true);
   };
 
@@ -175,24 +180,60 @@ const CompanyNameEditor = ({ companyName, onSave }) => {
                     Start Color
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                    <input
-                      type="color"
-                      value={gradientColor1}
-                      onChange={(e) => setGradientColor1(e.target.value)}
-                      style={{
+                    <Box
+                      sx={{
+                        position: 'relative',
                         width: '60px',
                         height: '40px',
-                        border: '2px solid #ddd',
                         borderRadius: '8px',
-                        cursor: 'pointer'
+                        border: '2px solid #ddd',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          borderColor: COLORS.PRIMARY_GREEN
+                        }
                       }}
-                    />
+                    >
+                      <input
+                        type="color"
+                        value={gradientColor1}
+                        onChange={(e) => setGradientColor1(e.target.value)}
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          border: 'none',
+                          cursor: 'pointer',
+                          opacity: 0
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: gradientColor1,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    </Box>
                     <TextField
                       size="small"
                       value={gradientColor1}
-                      onChange={(e) => setGradientColor1(e.target.value)}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^#[0-9A-Fa-f]{0,6}$/.test(val) || val === '') {
+                          setGradientColor1(val);
+                        }
+                      }}
                       placeholder="#4A9B7F"
-                      sx={{ flex: 1 }}
+                      sx={{
+                        flex: 1,
+                        '& .MuiOutlinedInput-root': {
+                          '&.Mui-focused fieldset': {
+                            borderColor: COLORS.PRIMARY_GREEN
+                          }
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
@@ -202,24 +243,60 @@ const CompanyNameEditor = ({ companyName, onSave }) => {
                     End Color
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                    <input
-                      type="color"
-                      value={gradientColor2}
-                      onChange={(e) => setGradientColor2(e.target.value)}
-                      style={{
+                    <Box
+                      sx={{
+                        position: 'relative',
                         width: '60px',
                         height: '40px',
-                        border: '2px solid #ddd',
                         borderRadius: '8px',
-                        cursor: 'pointer'
+                        border: '2px solid #ddd',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          borderColor: COLORS.PRIMARY_GREEN
+                        }
                       }}
-                    />
+                    >
+                      <input
+                        type="color"
+                        value={gradientColor2}
+                        onChange={(e) => setGradientColor2(e.target.value)}
+                        style={{
+                          position: 'absolute',
+                          width: '100%',
+                          height: '100%',
+                          border: 'none',
+                          cursor: 'pointer',
+                          opacity: 0
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: gradientColor2,
+                          pointerEvents: 'none'
+                        }}
+                      />
+                    </Box>
                     <TextField
                       size="small"
                       value={gradientColor2}
-                      onChange={(e) => setGradientColor2(e.target.value)}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^#[0-9A-Fa-f]{0,6}$/.test(val) || val === '') {
+                          setGradientColor2(val);
+                        }
+                      }}
                       placeholder="#2D6B54"
-                      sx={{ flex: 1 }}
+                      sx={{
+                        flex: 1,
+                        '& .MuiOutlinedInput-root': {
+                          '&.Mui-focused fieldset': {
+                            borderColor: COLORS.PRIMARY_GREEN
+                          }
+                        }
+                      }}
                     />
                   </Box>
                 </Grid>
@@ -318,48 +395,120 @@ const CompanyNameEditor = ({ companyName, onSave }) => {
 
                       <Grid item xs={12} md={3}>
                         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                          <input
-                            type="color"
-                            value={word.color1}
-                            onChange={(e) => updateWord(word.id, 'color1', e.target.value)}
-                            style={{
+                          <Box
+                            sx={{
+                              position: 'relative',
                               width: '40px',
                               height: '40px',
-                              border: '2px solid #ddd',
                               borderRadius: '8px',
-                              cursor: 'pointer'
+                              border: '2px solid #ddd',
+                              overflow: 'hidden',
+                              cursor: 'pointer',
+                              '&:hover': {
+                                borderColor: COLORS.PRIMARY_GREEN
+                              }
                             }}
-                          />
+                          >
+                            <input
+                              type="color"
+                              value={word.color1}
+                              onChange={(e) => updateWord(word.id, 'color1', e.target.value)}
+                              style={{
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                opacity: 0
+                              }}
+                            />
+                            <Box
+                              sx={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: word.color1,
+                                pointerEvents: 'none'
+                              }}
+                            />
+                          </Box>
                           <TextField
                             size="small"
                             value={word.color1}
-                            onChange={(e) => updateWord(word.id, 'color1', e.target.value)}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              if (/^#[0-9A-Fa-f]{0,6}$/.test(val) || val === '') {
+                                updateWord(word.id, 'color1', val);
+                              }
+                            }}
                             placeholder="Start"
-                            sx={{ flex: 1 }}
+                            sx={{
+                              flex: 1,
+                              '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                  borderColor: COLORS.PRIMARY_GREEN
+                                }
+                              }
+                            }}
                           />
                         </Box>
                       </Grid>
 
                       <Grid item xs={12} md={3}>
                         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                          <input
-                            type="color"
-                            value={word.color2}
-                            onChange={(e) => updateWord(word.id, 'color2', e.target.value)}
-                            style={{
+                          <Box
+                            sx={{
+                              position: 'relative',
                               width: '40px',
                               height: '40px',
-                              border: '2px solid #ddd',
                               borderRadius: '8px',
-                              cursor: 'pointer'
+                              border: '2px solid #ddd',
+                              overflow: 'hidden',
+                              cursor: 'pointer',
+                              '&:hover': {
+                                borderColor: COLORS.PRIMARY_GREEN
+                              }
                             }}
-                          />
+                          >
+                            <input
+                              type="color"
+                              value={word.color2}
+                              onChange={(e) => updateWord(word.id, 'color2', e.target.value)}
+                              style={{
+                                position: 'absolute',
+                                width: '100%',
+                                height: '100%',
+                                border: 'none',
+                                cursor: 'pointer',
+                                opacity: 0
+                              }}
+                            />
+                            <Box
+                              sx={{
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: word.color2,
+                                pointerEvents: 'none'
+                              }}
+                            />
+                          </Box>
                           <TextField
                             size="small"
                             value={word.color2}
-                            onChange={(e) => updateWord(word.id, 'color2', e.target.value)}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              if (/^#[0-9A-Fa-f]{0,6}$/.test(val) || val === '') {
+                                updateWord(word.id, 'color2', val);
+                              }
+                            }}
                             placeholder="End"
-                            sx={{ flex: 1 }}
+                            sx={{
+                              flex: 1,
+                              '& .MuiOutlinedInput-root': {
+                                '&.Mui-focused fieldset': {
+                                  borderColor: COLORS.PRIMARY_GREEN
+                                }
+                              }
+                            }}
                           />
                         </Box>
                       </Grid>

@@ -278,7 +278,15 @@ const QuotationForm = () => {
   
   return (
     <Box>
-      <Paper elevation={3} sx={{ padding: '30px', borderRadius: '15px' }}>
+      <Paper
+        elevation={0}
+        sx={{
+          padding: { xs: '20px', sm: '30px', md: '40px' },
+          borderRadius: '16px',
+          border: '1px solid #E0E0E0',
+          backgroundColor: 'white'
+        }}
+      >
         <CompanyHeader 
           companyAddress={DEFAULT_VALUES.COMPANY_ADDRESS}
           companyNameConfig={companyNameConfig}

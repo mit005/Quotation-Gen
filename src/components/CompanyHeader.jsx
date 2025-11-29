@@ -34,13 +34,15 @@ const CompanyHeader = ({ logoUrl, companyAddress, companyNameConfig, onCompanyNa
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '20px',
-        borderBottom: `3px solid ${COLORS.PRIMARY_GREEN}`,
-        marginBottom: '30px',
-        backgroundColor: COLORS.LIGHT_GREEN
+        padding: { xs: '20px', md: '30px' },
+        marginBottom: '40px',
+        background: `linear-gradient(135deg, ${COLORS.LIGHT_GREEN} 0%, white 100%)`,
+        borderRadius: '12px',
+        borderLeft: `6px solid ${COLORS.PRIMARY_GREEN}`,
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, flex: 1, flexWrap: 'wrap' }}>
         {logoUrl && (
           <img
             src={logoUrl}
@@ -52,13 +54,13 @@ const CompanyHeader = ({ logoUrl, companyAddress, companyNameConfig, onCompanyNa
             }}
           />
         )}
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ flex: 1, minWidth: '250px' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginBottom: '8px' }}>
             <Typography
               variant="h4"
               sx={{
-                fontWeight: 'bold',
-                marginBottom: '5px'
+                fontWeight: '700',
+                fontSize: { xs: '1.75rem', md: '2.125rem' }
               }}
             >
               {renderCompanyName()}
@@ -74,7 +76,9 @@ const CompanyHeader = ({ logoUrl, companyAddress, companyNameConfig, onCompanyNa
             variant="subtitle1"
             sx={{
               color: COLORS.PRIMARY_GREEN,
-              fontStyle: 'italic'
+              fontStyle: 'italic',
+              fontWeight: '500',
+              marginBottom: '12px'
             }}
           >
             {DEFAULT_VALUES.COMPANY_TAGLINE}
@@ -83,8 +87,8 @@ const CompanyHeader = ({ logoUrl, companyAddress, companyNameConfig, onCompanyNa
             variant="body2"
             sx={{
               color: COLORS.TEXT_SECONDARY,
-              marginTop: '10px',
-              whiteSpace: 'pre-line'
+              whiteSpace: 'pre-line',
+              lineHeight: 1.6
             }}
           >
             {companyAddress || DEFAULT_VALUES.COMPANY_ADDRESS}

@@ -11,9 +11,11 @@ const ActionButtons = ({ onPreview, onDownload, onReset, isFormValid, isLoading 
       sx={{
         display: 'flex',
         justifyContent: 'center',
-        gap: 2,
-        marginTop: '30px',
-        marginBottom: '30px'
+        gap: 3,
+        marginTop: '50px',
+        paddingTop: '30px',
+        borderTop: '2px solid #E0E0E0',
+        flexWrap: 'wrap'
       }}
     >
       <Tooltip title="Preview the quotation before downloading">
@@ -24,16 +26,24 @@ const ActionButtons = ({ onPreview, onDownload, onReset, isFormValid, isLoading 
             onClick={onPreview}
             disabled={!isFormValid || isLoading}
             sx={{
-              minWidth: '150px',
+              minWidth: '160px',
+              padding: '12px 28px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              borderRadius: '10px',
+              border: `2px solid ${COLORS.PRIMARY_GREEN}`,
               color: COLORS.PRIMARY_GREEN,
-              borderColor: COLORS.PRIMARY_GREEN,
+              transition: 'all 0.3s ease',
               '&:hover': {
                 borderColor: COLORS.DARK_GREEN,
-                backgroundColor: COLORS.LIGHT_GREEN
+                backgroundColor: COLORS.LIGHT_GREEN,
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(74, 155, 127, 0.2)'
               },
               '&:disabled': {
                 borderColor: COLORS.BORDER,
-                color: COLORS.TEXT_SECONDARY
+                color: COLORS.TEXT_SECONDARY,
+                transform: 'none'
               }
             }}
           >
@@ -50,14 +60,24 @@ const ActionButtons = ({ onPreview, onDownload, onReset, isFormValid, isLoading 
             onClick={onDownload}
             disabled={!isFormValid || isLoading}
             sx={{
-              minWidth: '150px',
-              backgroundColor: COLORS.PRIMARY_GREEN,
+              minWidth: '160px',
+              padding: '12px 28px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              borderRadius: '10px',
+              background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
+              boxShadow: '0 4px 12px rgba(74, 155, 127, 0.3)',
+              transition: 'all 0.3s ease',
               '&:hover': {
-                backgroundColor: COLORS.DARK_GREEN
+                background: `linear-gradient(135deg, ${COLORS.DARK_GREEN} 0%, ${COLORS.PRIMARY_GREEN} 100%)`,
+                transform: 'translateY(-2px)',
+                boxShadow: '0 6px 16px rgba(74, 155, 127, 0.4)'
               },
               '&:disabled': {
-                backgroundColor: COLORS.BORDER,
-                color: COLORS.TEXT_SECONDARY
+                background: COLORS.BORDER,
+                color: COLORS.TEXT_SECONDARY,
+                boxShadow: 'none',
+                transform: 'none'
               }
             }}
           >
@@ -74,16 +94,24 @@ const ActionButtons = ({ onPreview, onDownload, onReset, isFormValid, isLoading 
             onClick={onReset}
             disabled={isLoading}
             sx={{
-              minWidth: '150px',
+              minWidth: '160px',
+              padding: '12px 28px',
+              fontSize: '1rem',
+              fontWeight: '600',
+              borderRadius: '10px',
+              border: `2px solid ${COLORS.ERROR}`,
               color: COLORS.ERROR,
-              borderColor: COLORS.ERROR,
+              transition: 'all 0.3s ease',
               '&:hover': {
                 borderColor: '#B71C1C',
-                backgroundColor: '#FFEBEE'
+                backgroundColor: '#FFEBEE',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(211, 47, 47, 0.2)'
               },
               '&:disabled': {
                 borderColor: COLORS.BORDER,
-                color: COLORS.TEXT_SECONDARY
+                color: COLORS.TEXT_SECONDARY,
+                transform: 'none'
               }
             }}
           >

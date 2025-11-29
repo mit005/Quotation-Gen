@@ -27,7 +27,7 @@ import { COLORS, DEFAULT_VALUES } from '../constants';
 import QuotationForm from './QuotationForm';
 import DashboardHome from './DashboardHome';
 
-const drawerWidth = 260;
+const drawerWidth = 280;
 
 const Dashboard = ({ user, onLogout }) => {
   const [selectedMenu, setSelectedMenu] = useState('dashboard');
@@ -62,48 +62,63 @@ const Dashboard = ({ user, onLogout }) => {
   ];
 
   const drawer = (
-    <Box>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#FAFAFA' }}>
       <Box
         sx={{
-          padding: '20px',
+          padding: '30px 20px',
           background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
           color: 'white',
-          textAlign: 'center'
+          textAlign: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
         }}
       >
-        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: '8px', letterSpacing: '0.5px' }}>
           {DEFAULT_VALUES.COMPANY_NAME}
         </Typography>
-        <Typography variant="caption" sx={{ fontStyle: 'italic' }}>
+        <Typography variant="body2" sx={{ fontStyle: 'italic', opacity: 0.95 }}>
           {DEFAULT_VALUES.COMPANY_TAGLINE}
         </Typography>
       </Box>
       <Divider />
-      <List>
+      <List sx={{ padding: '16px 12px', flex: 1 }}>
         {menuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
+          <ListItem key={item.id} disablePadding sx={{ marginBottom: '8px' }}>
             <ListItemButton
               selected={selectedMenu === item.id}
               onClick={() => handleMenuClick(item.id)}
               sx={{
+                borderRadius: '12px',
+                padding: '12px 16px',
+                transition: 'all 0.3s ease',
                 '&.Mui-selected': {
-                  backgroundColor: COLORS.LIGHT_GREEN,
-                  borderLeft: `4px solid ${COLORS.PRIMARY_GREEN}`,
+                  backgroundColor: COLORS.PRIMARY_GREEN,
+                  color: 'white',
+                  boxShadow: '0 4px 12px rgba(74, 155, 127, 0.3)',
                   '&:hover': {
-                    backgroundColor: COLORS.LIGHT_GREEN
+                    backgroundColor: COLORS.DARK_GREEN
+                  },
+                  '& .MuiListItemIcon-root': {
+                    color: 'white'
                   }
+                },
+                '&:hover': {
+                  backgroundColor: selectedMenu === item.id ? COLORS.DARK_GREEN : COLORS.LIGHT_GREEN,
+                  transform: 'translateX(4px)'
                 }
               }}
             >
-              <ListItemIcon sx={{ color: selectedMenu === item.id ? COLORS.PRIMARY_GREEN : 'inherit' }}>
+              <ListItemIcon sx={{
+                color: selectedMenu === item.id ? 'white' : COLORS.TEXT_SECONDARY,
+                minWidth: '40px'
+              }}>
                 {item.icon}
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
                 sx={{
                   '& .MuiTypography-root': {
-                    fontWeight: selectedMenu === item.id ? 'bold' : 'normal',
-                    color: selectedMenu === item.id ? COLORS.PRIMARY_GREEN : 'inherit'
+                    fontWeight: selectedMenu === item.id ? '600' : '500',
+                    fontSize: '0.95rem'
                   }
                 }}
               />
@@ -118,29 +133,69 @@ const Dashboard = ({ user, onLogout }) => {
     <Box sx={{ display: 'flex' }}>
       <AppBar
         position="fixed"
+        elevation={0}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`
+          background: 'white',
+          borderBottom: '1px solid #E0E0E0',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ padding: '8px 24px !important' }}>
           <IconButton
-            color="inherit"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{
+              mr: 2,
+              display: { sm: 'none' },
+              color: COLORS.TEXT_PRIMARY
+            }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+          <Typography
+            variant="h5"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              fontWeight: '700',
+              color: COLORS.TEXT_PRIMARY,
+              fontSize: '1.5rem'
+            }}
+          >
             {menuItems.find(item => item.id === selectedMenu)?.label || 'Dashboard'}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Typography variant="body2">{user?.email}</Typography>
-            <IconButton onClick={handleProfileMenuOpen} color="inherit">
-              <Avatar sx={{ width: 35, height: 35, bgcolor: COLORS.DARK_GREEN }}>
-                <AccountCircle />
+            <Box sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexDirection: 'column',
+              alignItems: 'flex-end'
+            }}>
+              <Typography variant="body2" sx={{ fontWeight: '600', color: COLORS.TEXT_PRIMARY }}>
+                {user?.email?.split('@')[0]}
+              </Typography>
+              <Typography variant="caption" sx={{ color: COLORS.TEXT_SECONDARY }}>
+                Administrator
+              </Typography>
+            </Box>
+            <IconButton
+              onClick={handleProfileMenuOpen}
+              sx={{
+                padding: '4px',
+                '&:hover': {
+                  backgroundColor: COLORS.LIGHT_GREEN
+                }
+              }}
+            >
+              <Avatar sx={{
+                width: 42,
+                height: 42,
+                bgcolor: COLORS.PRIMARY_GREEN,
+                boxShadow: '0 2px 8px rgba(74, 155, 127, 0.3)'
+              }}>
+                <AccountCircle sx={{ fontSize: 28 }} />
               </Avatar>
             </IconButton>
           </Box>
@@ -192,15 +247,17 @@ const Dashboard = ({ user, onLogout }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          p: { xs: 2, sm: 3, md: 4 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           minHeight: '100vh',
-          backgroundColor: '#f5f5f5'
+          backgroundColor: '#F8F9FA'
         }}
       >
         <Toolbar />
-        {selectedMenu === 'dashboard' && <DashboardHome />}
-        {selectedMenu === 'quotations' && <QuotationForm />}
+        <Box sx={{ marginTop: '16px' }}>
+          {selectedMenu === 'dashboard' && <DashboardHome />}
+          {selectedMenu === 'quotations' && <QuotationForm />}
+        </Box>
       </Box>
     </Box>
   );

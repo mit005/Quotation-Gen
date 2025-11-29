@@ -24,42 +24,93 @@ const LineItemsTable = ({ lineItems, onAddItem, onRemoveItem, onUpdateItem }) =>
   };
   
   return (
-    <Box sx={{ marginBottom: '30px' }}>
+    <Box sx={{ marginBottom: '40px' }}>
       <Typography
         variant="h6"
         sx={{
-          color: COLORS.PRIMARY_GREEN,
-          fontWeight: 'bold',
-          marginBottom: '15px'
+          color: COLORS.TEXT_PRIMARY,
+          fontWeight: '700',
+          marginBottom: '20px',
+          fontSize: '1.25rem',
+          paddingBottom: '12px',
+          borderBottom: `3px solid ${COLORS.PRIMARY_GREEN}`
         }}
       >
         Line Items
       </Typography>
-      
-      <TableContainer component={Paper} elevation={2}>
+
+      <TableContainer
+        component={Paper}
+        elevation={0}
+        sx={{
+          border: '1px solid #E0E0E0',
+          borderRadius: '12px',
+          overflow: 'hidden'
+        }}
+      >
         <Table>
           <TableHead>
-            <TableRow sx={{ backgroundColor: COLORS.PRIMARY_GREEN }}>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold', width: '40%' }}>
+            <TableRow sx={{
+              background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`
+            }}>
+              <TableCell sx={{
+                color: 'white',
+                fontWeight: '700',
+                width: '40%',
+                fontSize: '0.875rem',
+                letterSpacing: '0.5px'
+              }}>
                 ITEM DESCRIPTION
               </TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold', width: '15%' }} align="center">
+              <TableCell sx={{
+                color: 'white',
+                fontWeight: '700',
+                width: '15%',
+                fontSize: '0.875rem',
+                letterSpacing: '0.5px'
+              }} align="center">
                 QTY
               </TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold', width: '20%' }} align="right">
+              <TableCell sx={{
+                color: 'white',
+                fontWeight: '700',
+                width: '20%',
+                fontSize: '0.875rem',
+                letterSpacing: '0.5px'
+              }} align="right">
                 PRICE
               </TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold', width: '20%' }} align="right">
+              <TableCell sx={{
+                color: 'white',
+                fontWeight: '700',
+                width: '20%',
+                fontSize: '0.875rem',
+                letterSpacing: '0.5px'
+              }} align="right">
                 TOTAL
               </TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold', width: '5%' }} align="center">
-                
+              <TableCell sx={{
+                color: 'white',
+                fontWeight: '700',
+                width: '5%'
+              }} align="center">
+
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {lineItems.map((item, index) => (
-              <TableRow key={item.id || index}>
+              <TableRow
+                key={item.id || index}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: '#F8F9FA'
+                  },
+                  '&:last-child td': {
+                    borderBottom: 0
+                  }
+                }}
+              >
                 <TableCell>
                   <TextField
                     fullWidth
@@ -132,16 +183,22 @@ const LineItemsTable = ({ lineItems, onAddItem, onRemoveItem, onUpdateItem }) =>
       </TableContainer>
       
       <Button
-        variant="outlined"
+        variant="contained"
         startIcon={<AddIcon />}
         onClick={onAddItem}
         sx={{
-          marginTop: '15px',
+          marginTop: '20px',
+          backgroundColor: 'white',
           color: COLORS.PRIMARY_GREEN,
-          borderColor: COLORS.PRIMARY_GREEN,
+          border: `2px solid ${COLORS.PRIMARY_GREEN}`,
+          padding: '10px 24px',
+          fontWeight: '600',
+          borderRadius: '8px',
+          boxShadow: 'none',
           '&:hover': {
-            borderColor: COLORS.DARK_GREEN,
-            backgroundColor: COLORS.LIGHT_GREEN
+            backgroundColor: COLORS.PRIMARY_GREEN,
+            color: 'white',
+            boxShadow: '0 4px 12px rgba(74, 155, 127, 0.3)'
           }
         }}
       >

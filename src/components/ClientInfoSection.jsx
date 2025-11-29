@@ -12,19 +12,22 @@ const ClientInfoSection = ({
   errors
 }) => {
   return (
-    <Box sx={{ marginBottom: '30px' }}>
+    <Box sx={{ marginBottom: '40px' }}>
       <Typography
         variant="h6"
         sx={{
-          color: COLORS.PRIMARY_GREEN,
-          fontWeight: 'bold',
-          marginBottom: '15px'
+          color: COLORS.TEXT_PRIMARY,
+          fontWeight: '700',
+          marginBottom: '20px',
+          fontSize: '1.25rem',
+          paddingBottom: '12px',
+          borderBottom: `3px solid ${COLORS.PRIMARY_GREEN}`
         }}
       >
         Client Information
       </Typography>
-      
-      <Grid container spacing={2}>
+
+      <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
             fullWidth

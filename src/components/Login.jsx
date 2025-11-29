@@ -40,30 +40,60 @@ const Login = ({ onLoginSuccess }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: `linear-gradient(135deg, ${COLORS.LIGHT_GREEN} 0%, ${COLORS.PRIMARY_GREEN} 100%)`,
-        padding: '20px'
+        background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
+        padding: '20px',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+          pointerEvents: 'none'
+        }
       }}
     >
       <Paper
-        elevation={10}
+        elevation={0}
         sx={{
-          padding: '50px 40px',
-          maxWidth: '450px',
+          padding: { xs: '40px 30px', sm: '60px 50px' },
+          maxWidth: '480px',
           width: '100%',
-          borderRadius: '20px',
-          textAlign: 'center'
+          borderRadius: '24px',
+          textAlign: 'center',
+          backgroundColor: 'white',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+          position: 'relative',
+          zIndex: 1
         }}
       >
-        {/* Logo and Company Name */}
-        <Box sx={{ marginBottom: '30px' }}>
+        <Box sx={{ marginBottom: '40px' }}>
+          <Box
+            sx={{
+              width: '80px',
+              height: '80px',
+              margin: '0 auto 20px',
+              background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
+              borderRadius: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 8px 24px rgba(74, 155, 127, 0.3)'
+            }}
+          >
+            <LoginIcon sx={{ fontSize: 40, color: 'white' }} />
+          </Box>
           <Typography
             variant="h3"
             sx={{
-              fontWeight: 'bold',
-              background: `linear-gradient(135deg, #4A9B7F 0%, #2D6B54 100%)`,
+              fontWeight: '700',
+              background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-              marginBottom: '10px'
+              marginBottom: '8px',
+              fontSize: { xs: '2rem', sm: '2.5rem' }
             }}
           >
             {DEFAULT_VALUES.COMPANY_NAME}
@@ -73,18 +103,26 @@ const Login = ({ onLoginSuccess }) => {
             sx={{
               color: COLORS.PRIMARY_GREEN,
               fontStyle: 'italic',
-              marginBottom: '10px'
+              marginBottom: '8px',
+              fontWeight: '500'
             }}
           >
             {DEFAULT_VALUES.COMPANY_TAGLINE}
           </Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" sx={{ color: COLORS.TEXT_SECONDARY }}>
             Quotation Management System
           </Typography>
         </Box>
 
-        <Typography variant="h5" sx={{ marginBottom: '30px', fontWeight: 'bold', color: COLORS.TEXT_PRIMARY }}>
-          Sign In
+        <Typography
+          variant="h5"
+          sx={{
+            marginBottom: '30px',
+            fontWeight: '700',
+            color: COLORS.TEXT_PRIMARY
+          }}
+        >
+          Welcome Back
         </Typography>
 
         {error && (
@@ -152,14 +190,22 @@ const Login = ({ onLoginSuccess }) => {
             variant="contained"
             size="large"
             disabled={loading}
-            startIcon={<LoginIcon />}
             sx={{
-              padding: '12px',
-              fontSize: '16px',
-              fontWeight: 'bold',
+              padding: '14px',
+              fontSize: '1.125rem',
+              fontWeight: '700',
+              borderRadius: '12px',
               background: `linear-gradient(135deg, ${COLORS.PRIMARY_GREEN} 0%, ${COLORS.DARK_GREEN} 100%)`,
+              boxShadow: '0 8px 24px rgba(74, 155, 127, 0.3)',
+              transition: 'all 0.3s ease',
               '&:hover': {
-                background: `linear-gradient(135deg, ${COLORS.DARK_GREEN} 0%, ${COLORS.PRIMARY_GREEN} 100%)`
+                background: `linear-gradient(135deg, ${COLORS.DARK_GREEN} 0%, ${COLORS.PRIMARY_GREEN} 100%)`,
+                transform: 'translateY(-2px)',
+                boxShadow: '0 12px 32px rgba(74, 155, 127, 0.4)'
+              },
+              '&:disabled': {
+                background: COLORS.BORDER,
+                transform: 'none'
               }
             }}
           >
@@ -167,11 +213,29 @@ const Login = ({ onLoginSuccess }) => {
           </Button>
         </form>
 
-        <Box sx={{ marginTop: '30px', padding: '15px', backgroundColor: COLORS.LIGHT_GREEN, borderRadius: '10px' }}>
-          <Typography variant="caption" color="textSecondary">
-            <strong>Demo Credentials:</strong><br />
-            Email: admin@ecovianenergy.com<br />
-            Password: Admin@123
+        <Box
+          sx={{
+            marginTop: '30px',
+            padding: '20px',
+            background: `linear-gradient(135deg, ${COLORS.LIGHT_GREEN} 0%, white 100%)`,
+            borderRadius: '12px',
+            border: `2px solid ${COLORS.PRIMARY_GREEN}`,
+            boxShadow: '0 4px 12px rgba(74, 155, 127, 0.1)'
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              fontWeight: '600',
+              color: COLORS.TEXT_PRIMARY,
+              marginBottom: '8px'
+            }}
+          >
+            Demo Credentials
+          </Typography>
+          <Typography variant="body2" sx={{ color: COLORS.TEXT_SECONDARY, lineHeight: 1.8 }}>
+            <strong>Email:</strong> admin@ecovianenergy.com<br />
+            <strong>Password:</strong> Admin@123
           </Typography>
         </Box>
       </Paper>
